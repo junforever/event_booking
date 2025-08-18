@@ -5,13 +5,13 @@ interface SeparatorProps {
 
 export const Separator = ({ text, variant }: SeparatorProps) => {
   const variantBadge = {
-    teal: 'bg-teal-light border-teal-accent text-teal-accent',
-    indigo: 'bg-indigo-light border-indigo-accent text-indigo-accent',
+    teal: 'bg-emerald-25 border-teal-450 text-teal-450',
+    indigo: 'bg-purple-50 border-violet-650 text-violet-650',
   };
 
   const variantLine = {
-    teal: 'to-teal-accent',
-    indigo: 'to-indigo-accent',
+    teal: 'to-teal-450',
+    indigo: 'to-violet-650',
   };
 
   return (
