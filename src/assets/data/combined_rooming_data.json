@@ -165,7 +165,7 @@
     "hotelId": 101,
     "rfpName": "RLM-2025",
     "cutOffDate": "2025-10-15",
-    "status": "Confirmed",
+    "status": "confirmed",
     "agreement_type": "leisure",
     "bookings": [
       {
