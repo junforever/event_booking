@@ -59,6 +59,10 @@
   --text-26: 1.625rem;
   --leading-24: 1.5rem;
   --leading-18: 1.125rem;
+  --leading-20: 1.25rem;
+  --leading-32: 2rem;
+  --text-32: 2rem;
+  --leading-16: 1rem;
 }
 
 :root {
