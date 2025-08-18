@@ -49,6 +49,10 @@
   --color-neutral-850: var(--neutral-850);
   --color-neutral-550: var(--neutral-550);
   --color-slate-350: var(--slate-350);
+  --color-slate-150: var(--slate-150);
+  --color-slate-450: var(--slate-450);
+  --color-slate-25: var(--slate-25);
+
   --tracking-1: 0.063rem;
   --leading-12: 0.75rem;
   --text-26: 1.625rem;
@@ -98,6 +102,9 @@
   --neutral-850: #141416;
   --neutral-550: rgba(20, 20, 22, 0.8);
   --slate-350: #cdd4e5;
+  --slate-450: #777e90;
+  --slate-150: #e4ecf2;
+  --slate-25: #f9fbff;
 }
 
 .dark {

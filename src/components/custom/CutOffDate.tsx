@@ -7,7 +7,7 @@ export const CutOffDate = ({ date, text }: CutOffDateProps) => {
   const day = date.getDate();
 
   return (
-    <div className={'flex flex-col items-center ml-20 gap-y-1'} aria-hidden>
+    <div className={'flex flex-col items-center gap-y-1'} aria-hidden>
       <div className="flex flex-col items-center rounded-lg border w-14 overflow-hidden">
         <div className="bg-electric-blue-gradient text-center w-full flex items-center justify-center py-0.5 px-2.5 self-stretch">
           <span className="text-xs font-semibold tracking-1 text-blue-450 leading-12 uppercase">
