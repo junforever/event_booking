@@ -7,8 +7,8 @@ import { CalendarDays } from 'lucide-react';
 export interface RfpCardProps {
   rfpName: string;
   agreement: string;
-  checkInDate: Date;
-  checkOutDate: Date;
+  checkInDate: Date | string;
+  checkOutDate: Date | string;
   cutOffDate: Date;
   bookingsCount: number;
   onViewBookings?: () => void;
@@ -23,12 +23,12 @@ export function RfpCard({
   bookingsCount,
   onViewBookings,
 }: RfpCardProps) {
-  const formattedCheckInDate = format(checkInDate, 'MMM d');
-  const formattedCheckOutDate = format(checkOutDate, 'MMM d');
-  const year = checkOutDate.getFullYear();
+  const formattedCheckInDate = checkInDate instanceof Date ? format(checkInDate, 'MMM d') : '';
+  const formattedCheckOutDate = checkOutDate instanceof Date ? format(checkOutDate, 'MMM d') : '';
+  const year = checkOutDate instanceof Date ? checkOutDate.getFullYear() : '';
 
   return (
-    <section className="w-full max-w-sm p-4 border rounded-md">
+    <article className="w-full max-w-sm p-4 border border-slate-150 rounded-md">
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
           <p className="font-bold text-base text-ellipsis leading-24 text-neutral-850">{rfpName}</p>
@@ -62,6 +62,6 @@ export function RfpCard({
           <CardIcon className="size-6" />
         </Button>
       </div>
-    </section>
+    </article>
   );
 }

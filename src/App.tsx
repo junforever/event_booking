@@ -1,33 +1,61 @@
+import { Header } from '@/components/custom/Header';
+import { processData } from '@/lib/processData';
 import { Separator } from '@/components/custom/Separator';
-import { CutOffDate } from '@/components/custom/CutOffDate';
-import { SearchInput } from '@/components/custom/SearchInput';
-import { FilterButton } from '@/components/custom/FilterButton';
 import { RfpCard } from '@/components/custom/RfpCard';
+import { getBookingDateRange } from '@/lib/processData';
+import { parseISO } from 'date-fns';
+
+const filters = [
+  { value: 'active', label: 'Active' },
+  { value: 'closed', label: 'Closed' },
+  { value: 'canceled', label: 'Canceled' },
+];
+
 function App() {
-  const items = [
-    { value: 'active', label: 'Active' },
-    { value: 'closed', label: 'Closed' },
-    { value: 'canceled', label: 'Canceled' },
-  ];
+  const data = processData();
+  console.log(data);
+
+  const handleFilters = (filters: string[]) => {
+    console.log(filters);
+  };
+
+  const handleViewBookings = () => {
+    console.log('View bookings');
+  };
+
   return (
     <main className="p-8">
-      <h1 className="text-32 text-neutral-850 font-semibold leading-32">
-        Rooming List Management: Events
-      </h1>
-      <Separator text="Event 1" variant="teal" />
-      <Separator text="Event 2" variant="indigo" />
-      <CutOffDate date={new Date()} text="Cut Off Date" />
-      <FilterButton filterButtonLabel="Filters" filters={items} handleFilters={() => {}} />
-      <SearchInput />
-      <RfpCard
-        rfpName="ACL-2025"
-        agreement="Leisure"
-        checkInDate={new Date()}
-        checkOutDate={new Date()}
-        cutOffDate={new Date()}
-        bookingsCount={5}
-        onViewBookings={() => {}}
+      <Header
+        title="Rooming List Management: Events"
+        filters={filters}
+        handleFilters={handleFilters}
+        className="mb-6"
       />
+
+      <section className="flex flex-col gap-y-12">
+        {data.map((item, index) => (
+          <div key={item.eventId} className="flex flex-col gap-y-4">
+            <Separator text={item.eventName} variant={index % 2 === 0 ? 'indigo' : 'teal'} />
+            <div className="flex gap-x-4">
+              {item.bookingsList.map(booking => {
+                const dates = getBookingDateRange(booking.bookings);
+                return (
+                  <RfpCard
+                    key={booking.roomingListId}
+                    rfpName={booking.rfpName}
+                    agreement={booking.agreement_type}
+                    checkInDate={dates?.minCheckIn ? parseISO(dates.minCheckIn) : ''}
+                    checkOutDate={dates?.maxCheckOut ? parseISO(dates.maxCheckOut) : ''}
+                    cutOffDate={parseISO(booking.cutOffDate)}
+                    bookingsCount={booking.bookings.length}
+                    onViewBookings={handleViewBookings}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </section>
     </main>
   );
 }

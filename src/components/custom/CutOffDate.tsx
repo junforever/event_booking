@@ -1,10 +1,13 @@
+import { format } from 'date-fns';
+
 interface CutOffDateProps {
   date: Date;
   text: string;
 }
 export const CutOffDate = ({ date, text }: CutOffDateProps) => {
-  const month = date.toLocaleString('default', { month: 'short' });
-  const day = date.getDate();
+  console.log(date);
+  const month = format(date, 'MMM');
+  const day = format(date, 'd');
 
   return (
     <div className={'flex flex-col items-center gap-y-1'} aria-hidden>

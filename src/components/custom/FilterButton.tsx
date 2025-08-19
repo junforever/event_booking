@@ -12,16 +12,12 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/component
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-interface filters {
-  value: string;
-  label: string;
-}
+import type { IFilter, HandleFilters } from '@/types/IFilter';
 
 interface FilterButtonProps {
   filterButtonLabel: string;
-  filters: filters[];
-  handleFilters: (filter: string[]) => void;
+  filters: IFilter[];
+  handleFilters: HandleFilters;
 }
 
 const FormSchema = z.object({
@@ -45,7 +41,7 @@ export function FilterButton({ filterButtonLabel, filters, handleFilters }: Filt
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="flex items-center gap-x-3 px-4.5 py-3.5 text-neutral-850 font-medium"
+          className="flex items-center gap-x-3 text-neutral-850 font-medium h-12 filter-button"
         >
           {filterButtonLabel}
           <FilterIcon />

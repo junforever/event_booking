@@ -166,4 +166,7 @@
     background: linear-gradient(0deg, rgba(62, 140, 255, 0.1) 0%, rgba(62, 140, 255, 0.1) 100%),
       #fff;
   }
+  .filter-button {
+    padding: 14px 20px !important;
+  }
 }
