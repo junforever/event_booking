@@ -1,69 +1,39 @@
-# React + TypeScript + Vite
+# Event Booking — Rooming List Management
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript single‑page app to explore and manage event rooming lists from a static dataset. It groups bookings by event and shows each RFP as a card with agreement type, cut‑off date, booking date range, and booking count. Includes text and status filters.
 
-Currently, two official plugins are available:
+## Key features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Group bookings by `eventId`/`eventName` and render per-event sections (`src/hooks/useStaticJsonData.ts`, `src/App.tsx`).
+- Search by text matching `rfpName` or `agreement_type`, and filter by status derived from data (`getExistingStatus()` in `src/lib/processData.ts`).
+- Show RFP cards with cut‑off date, computed date range (`getBookingDateRange()`), and booking count (`src/components/custom/RfpCard.tsx`).
+- Uses Tailwind CSS and shadcn/ui components for styling; lucide-react for icons.
 
-## Expanding the ESLint configuration
+## Tech stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 19 + TypeScript
+- Vite 7 with React SWC and SVGR (`vite.config.ts`)
+- Tailwind CSS 4, shadcn/ui, date-fns
+- ESLint, Husky, Commitlint
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Data
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- Static JSON at `src/assets/data/combined_rooming_data.json` is loaded and organized client-side.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Package manager
+
+- pnpm is used for dependency management due to its speed and efficient disk space usage (`pnpm-lock.yaml` included).
+
+## Getting started
+
+```bash
+pnpm install
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Common scripts: `pnpm build`, `pnpm preview`, `pnpm lint`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Configuration
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Alias `@` -> `src` and dev server port via `VITE_APP_PORT` (defaults to 3000) in `vite.config.ts`.
+- Global styles: `src/styles/globals.css`.
