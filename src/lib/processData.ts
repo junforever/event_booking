@@ -1,11 +1,5 @@
 import { parseISO, isBefore, isAfter } from 'date-fns';
-import data from '@/assets/data/combined_rooming_data.json';
-
-type ProcessedData = {
-  eventId: number;
-  eventName: string;
-  bookingsList: typeof data;
-};
+import type { Event } from '@/types/IData';
 
 type Booking = {
   checkInDate: string;
@@ -33,25 +27,9 @@ export function getBookingDateRange(bookings: Booking[]) {
   };
 }
 
-export function processData(): ProcessedData[] {
-  const response: ProcessedData[] = [];
-
-  const checked = new Set<number>();
-  const uniqueEvents = data.filter(obj => {
-    if (checked.has(obj.eventId)) return false;
-    checked.add(obj.eventId);
-    return true;
-  });
-
-  uniqueEvents.forEach(event => {
-    const eventBookings = data.filter(item => item.eventId === event.eventId);
-
-    response.push({
-      eventId: event.eventId,
-      eventName: event.eventName,
-      bookingsList: eventBookings,
-    });
-  });
-
-  return response;
+export function getExistingStatus(data: Event[]) {
+  const statusSet = new Set<string>();
+  data.forEach(item => statusSet.add(item.status.toString()));
+  const statusArray = Array.from(statusSet);
+  return statusArray.map(item => ({ value: item.toLowerCase(), label: item }));
 }

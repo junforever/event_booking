@@ -1,21 +1,14 @@
-import { SearchInput } from '@/components/custom/SearchInput';
-import { FilterButton } from '@/components/custom/FilterButton';
-import type { IFilter, HandleFilters } from '@/types/IFilter';
-
 interface HeaderProps {
   title: string;
-  filters: IFilter[];
-  handleFilters: HandleFilters;
   className?: string;
+  children?: React.ReactNode;
 }
-export const Header = ({ title, filters, handleFilters, className }: HeaderProps) => {
+
+export const Header = ({ title, className, children }: HeaderProps) => {
   return (
     <header className={`flex flex-col gap-y-8 ${className}`}>
-      <h1 className="text-32 text-neutral-850 font-semibold leading-32">{title}</h1>
-      <div className="flex gap-x-4">
-        <SearchInput />
-        <FilterButton filterButtonLabel="Filters" filters={filters} handleFilters={handleFilters} />
-      </div>
+      <h1 className="text-3xl sm:text-32 text-neutral-850 font-semibold leading-32">{title}</h1>
+      <div className="flex flex-col sm:flex-row gap-y-4 sm:gap-x-4">{children}</div>
     </header>
   );
 };

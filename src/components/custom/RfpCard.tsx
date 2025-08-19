@@ -3,41 +3,43 @@ import { CutOffDate } from '@/components/custom/CutOffDate';
 import CardIcon from '@/assets/svg/cardIcon.svg?react';
 import { format } from 'date-fns';
 import { CalendarDays } from 'lucide-react';
+import { parseISO } from 'date-fns';
+import type { Event } from '@/types/IData';
 
-export interface RfpCardProps {
-  rfpName: string;
-  agreement: string;
-  checkInDate: Date | string;
-  checkOutDate: Date | string;
-  cutOffDate: Date;
+type EventPick = Pick<Event, 'rfpName' | 'agreement_type' | 'cutOffDate'>;
+
+export interface RfpCardProps extends EventPick {
+  checkInDate: string;
+  checkOutDate: string;
   bookingsCount: number;
   onViewBookings?: () => void;
 }
 
 export function RfpCard({
   rfpName,
-  agreement,
+  agreement_type,
   checkInDate,
   checkOutDate,
   cutOffDate,
   bookingsCount,
   onViewBookings,
 }: RfpCardProps) {
-  const formattedCheckInDate = checkInDate instanceof Date ? format(checkInDate, 'MMM d') : '';
-  const formattedCheckOutDate = checkOutDate instanceof Date ? format(checkOutDate, 'MMM d') : '';
-  const year = checkOutDate instanceof Date ? checkOutDate.getFullYear() : '';
+  const formattedCheckInDate = checkInDate ? format(parseISO(checkInDate), 'MMM d') : '';
+  const formattedCheckOutDate = checkOutDate ? format(parseISO(checkOutDate), 'MMM d') : '';
+  const year = checkOutDate ? parseISO(checkOutDate).getFullYear() : '';
+  const cutOffDateParsed = parseISO(cutOffDate);
 
   return (
-    <article className="w-full max-w-sm p-4 border border-slate-150 rounded-md">
+    <article className="w-full min-w-2xs sm:min-w-sm basis-96 p-4 border border-slate-150 rounded-md">
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
           <p className="font-bold text-base text-ellipsis leading-24 text-neutral-850">{rfpName}</p>
           <p className="text-neutral-550 text-sm font-medium leading-20">
-            Agreement: <span className="font-extrabold">{agreement}</span>
+            Agreement: <span className="font-extrabold">{agreement_type}</span>
           </p>
         </div>
         <div>
-          <CutOffDate date={cutOffDate} text="Cut-Off Date" />
+          <CutOffDate date={cutOffDateParsed} text="Cut-Off Date" />
         </div>
       </div>
       <div className="flex items-center gap-x-1 text-slate-450 mt-3">

@@ -5,7 +5,6 @@ interface CutOffDateProps {
   text: string;
 }
 export const CutOffDate = ({ date, text }: CutOffDateProps) => {
-  console.log(date);
   const month = format(date, 'MMM');
   const day = format(date, 'd');
 
